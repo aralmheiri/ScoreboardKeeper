@@ -1,57 +1,178 @@
 #include <iostream>
+
 #include <vector>
+
+#include <cstdlib>
+
+#include <ctime>
+
+
 
 using namespace std;
 
+
+
 const int MAX_PERIODS = 10;
+
 const int MAX_TEAMS = 4;
+
 const int MIN_PERIODS = 1;
+
 const int MIN_TEAMS = 1;
 
+void printScoreboard( vector < vector < int > >);
+
+int randomBetween (int,int); 
+
+
+
 int main()
+
 {
-  int periods;
-  int teams;
-    vector< vector<int> > scoreBoard;
 
-  cout<<"How many competitors? ";
-  cin>>teams;
-  cout<<"How many scoring periods? ";
-  cin>>periods;
+        srand((int) time(0));
 
-  if( teams < MIN_TEAMS || periods < MIN_PERIODS || 
-      teams > MAX_TEAMS || periods > MAX_PERIODS )
-  {
-    cout<<"Must have between "<<MIN_TEAMS<<" and "<<MAX_TEAMS<<" competitors.\n";
-    cout<<"and between "<<MIN_PERIODS<<" and "<<MAX_PERIODS<<" periods.\n";
-    return 0;
-  }
-  else
-  {
-     scoreBoard.resize(teams);
-     for(int row = 0; row < scoreBoard.size(); row++)
-     {
-      scoreBoard[row].resize(periods);
-     }
-     for(int row = 0;row < scoreBoard.size(); row++)
-     {
-       for(int col = 0; col < scoreBoard.size(); col++)
-       { 
-        scoreBoard[row][col] = 0;
-       }
-     }
-     cout<<"SCOREBOARD"<<endl;
+        int periods, row;
 
-     for(int row = 0; row < scoreBoard.size(); row++)
-     {
-      cout<<"Player "<<row + 1<<": ";
+        int teams, col;
 
-      for(int col = 0; col < scoreBoard[row].size(); col++)
-      { 
-      cout<<scoreBoard[row][col]<<"|";
+        int P_NUMBER = 1;
+
+        vector < vector <int> > score_Board;
+
+
+
+        cout<<"How many competitors? ";
+
+        cin>>teams;
+
+        cout<<"How many scoring periods? ";
+
+        cin>>periods;
+
+
+
+
+
+
+
+
+
+
+
+        if( teams < MIN_TEAMS || periods < MIN_PERIODS || 
+
+                        teams > MAX_TEAMS || periods > MAX_PERIODS )
+
+      {
+
+                cout<<"Must have between "<<MIN_TEAMS<<" and "<<MAX_TEAMS<<" competitors.\n";
+
+                cout<<"and between "<<MIN_PERIODS<<" and "<<MAX_PERIODS<<" periods.\n";
+
+                return 0;
+
       }
-      cout<<endl;
-      }
-  }
-  return 0;
+
+        else
+
+      {
+
+                score_Board.resize(teams);
+
+                for( int row = 0; row < score_Board.size(); row ++)
+
+           {
+
+                        score_Board[row].resize(periods);
+
+            }
+
+
+
+                printScoreboard(score_Board);
+
+
+
+                for(int row = 0; row < score_Board.size(); row ++)
+
+             {
+
+                        for(int col = 0; col < score_Board[row].size(); col ++)
+
+                    {
+
+                                score_Board [row][col] = randomBetween(5,5);        
+    }
+
+         }
+
+
+
+                printScoreboard(score_Board);
+
+
+
+
+
+
+
+        }
+
+        return 0;
+
+}
+
+
+
+void printScoreboard( vector < vector <int> > grid)
+
+{ 
+
+        cout<< "SCOREBOARD\n";
+
+
+
+        for(int row = 0; row < grid.size(); row++)
+
+        {
+
+                cout<< "Player " <<row + 1<< ": ";
+
+                for(int col = 0; col < grid[row].size(); col ++)
+
+                {
+
+                        cout<< grid[row][col];
+
+                        cout<< "|";
+
+                }
+
+                cout<<endl;
+
+        }
+
+}
+
+int randomBetween(int first, int second)
+
+{
+
+        if( first > second)
+
+          {
+
+                return second + rand()%(first-second + 1);
+
+          }
+
+        else 
+
+          {
+
+                return first + rand()%(second-first + 1);
+
+          }
+
 }
